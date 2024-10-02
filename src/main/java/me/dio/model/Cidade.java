@@ -1,5 +1,6 @@
 package me.dio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -36,12 +37,18 @@ public class Cidade implements Serializable {
     @Column(name = "capital", nullable = false)
     private Boolean capital;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "estado_id", nullable = false)
+    private Estado estado;
+
     public CidadeDto toRecord() {
         return new CidadeDto(
                 id,
                 nome,
                 uf,
-                capital
+                capital,
+                estado
         );
     }
 }

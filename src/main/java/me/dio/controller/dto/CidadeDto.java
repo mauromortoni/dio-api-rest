@@ -3,13 +3,14 @@ package me.dio.controller.dto;
 import me.dio.model.Cidade;
 import me.dio.model.Estado;
 
-public record CidadeDto(Long id, String nome, String uf, Boolean capital) {
+public record CidadeDto(Long id, String nome, String uf, Boolean capital, Estado estado) {
     public CidadeDto(Cidade model) {
         this(
             model.getId(),
             model.getNome(),
             model.getUf(),
-            model.getCapital()
+            model.getCapital(),
+            model.getEstado()
         );
     }
 
@@ -20,6 +21,7 @@ public record CidadeDto(Long id, String nome, String uf, Boolean capital) {
         model.setNome(this.nome);
         model.setUf(this.uf);
         model.setCapital(this.capital);
+        model.setEstado(this.estado);
 
         return model;
     }

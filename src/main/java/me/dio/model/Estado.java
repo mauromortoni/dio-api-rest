@@ -37,4 +37,8 @@ public class Estado implements Serializable {
 
     @Column(name = "sigla", nullable = false)
     private String sigla;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cidade> cidades;
 }
