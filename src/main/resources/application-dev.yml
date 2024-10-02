@@ -1,0 +1,39 @@
+
+# -----------------------------------------------------
+# Configuracao da porta e contexto da aplica��o  
+# -----------------------------------------------------  
+server:
+  port: 8080
+  servlet.context-path: /dio
+
+# --------------------------------------------------------
+# configuracao do banco de dados
+# --------------------------------------------------------
+spring:
+  sql.init.mode: always
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: admin
+    password:
+
+# --------------------------------------------------------
+# configuracao do H2
+# --------------------------------------------------------
+  h2:
+    console:
+      enabled: true
+      path: /h2-console  
+
+# --------------------------------------------------------
+# configuracoes da JPA
+# --------------------------------------------------------
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update  # validate | update | create | create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
