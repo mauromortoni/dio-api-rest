@@ -14,12 +14,14 @@ import java.util.List;
 
 /** Entidade que guarda os dados de uma estado */
 //-------------------------------------------------
-@Entity
+
+@Data
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "estado")
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,

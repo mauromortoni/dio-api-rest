@@ -11,12 +11,13 @@ import java.io.Serializable;
 //-------------------------------------------------
 /** Entidade que guarda os dados de uma cidade */
 //-------------------------------------------------
-@Entity
+@Data
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "cidade")
 public class Cidade implements Serializable {
     private static final long serialVersionUID = -2492630916137536785L;
@@ -30,10 +31,6 @@ public class Cidade implements Serializable {
     @Column(name = "NOME", length = 100, nullable = false)
     private String nome;
 
-    @NotBlank
-    @Column(name = "UF", length = 2, nullable = false)
-    private String uf;
-
     @Column(name = "capital", nullable = false)
     private Boolean capital;
 
@@ -46,7 +43,6 @@ public class Cidade implements Serializable {
         return new CidadeDto(
                 id,
                 nome,
-                uf,
                 capital,
                 estado
         );

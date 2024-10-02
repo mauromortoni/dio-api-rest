@@ -3,21 +3,16 @@ package me.dio.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import jakarta.persistence.Converter;
 import me.dio.model.Cidade;
 import me.dio.service.exception.NotFoundException;
 import me.dio.repository.CidadeRepository;
-import org.modelmapper.internal.util.Strings;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import me.dio.service.interfaces.CidadeService;
-import me.dio.util.ObjectMapperUtils;
 import me.dio.controller.dto.CidadeDto;
 import org.springframework.transaction.annotation.Transactional;
 import me.dio.service.exception.BadRequestException;
-
-import static java.util.Optional.ofNullable;
 
 @Service
 public class CidadeServiceImpl implements CidadeService {
@@ -67,9 +62,9 @@ public class CidadeServiceImpl implements CidadeService {
 	@Override
 	@Transactional
 	public Cidade createCidade(CidadeDto dto) {
-		if (repository.existsCidadeByUfAndNome(dto.uf(), dto.nome())) throw new BadRequestException();
+		if (repository.existsCidadeByUfAndNome(dto.estado().getSigla(), dto.nome())) throw new BadRequestException();
 		if (dto.capital() == true) {
-			if (repository.existsCidadeByUfAndCapital(dto.uf(), true))
+			if (repository.existsCidadeByUfAndCapital(dto.estado().getSigla(), true))
 				throw new BadRequestException();
 		}
 
@@ -86,13 +81,10 @@ public class CidadeServiceImpl implements CidadeService {
 		if (repository.existsById(id)) {
 			var cidade = repository.findById(dto.id()).get();
 
-//			cidade = ObjectMapperUtils.updateNonNullFields(dto, cidade);
 			Optional<String> nome = Optional.ofNullable(dto.nome());
-			Optional<String> uf = Optional.ofNullable(dto.uf());
 			Optional<Boolean> capital = Optional.ofNullable(dto.capital());
 
 			if (nome.isPresent()) cidade.setNome(nome.get());
-			if (uf.isPresent()) cidade.setUf(uf.get());
 			if (capital.isPresent()) cidade.setCapital(capital.get());
 
 			cidade = repository.saveAndFlush(cidade);

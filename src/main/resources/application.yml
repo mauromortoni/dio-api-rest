@@ -1,38 +1,10 @@
-
-# -----------------------------------------------------
-# Configuracao da porta e contexto da aplica��o  
-# -----------------------------------------------------  
-server:
-  port: 8080
-  servlet.context-path: /dio
-
-# --------------------------------------------------------
-# configuracao do banco de dados
-# --------------------------------------------------------
 spring:
-  sql.init.mode: always
   datasource:
-    url: jdbc:h2:mem:database
-    driverClassName: org.h2.Driver
-    username: admin
-    password:
-
-# --------------------------------------------------------
-# configuracao do H2
-# --------------------------------------------------------
-  h2:
-    console:
-      enabled: true
-      path: /h2-console  
-
-# --------------------------------------------------------
-# configuracoes da JPA
-# --------------------------------------------------------
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
   jpa:
-    hibernate.dialect: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
-    hibernate.ddl-auto: none
-#    hibernate.hbm2ddl.auto: none
-    show-sql: true
-
-# org.hibernate.dialect.H2Dialect  org.hibernate.dialect.PostgreSQLDialect
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
