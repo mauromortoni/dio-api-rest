@@ -48,8 +48,8 @@ public class CidadeServiceImpl implements CidadeService {
 	//----------------------------------------------------------
 	@Transactional(readOnly = true)
 	public List<CidadeDto> CidadesByUf(String uf) {
-		if (repository.existsByUf(uf)) {
-			List<Cidade> listCidades = repository.findByUf(uf);
+		if (repository.existsByEstado_Sigla(uf)) {
+			List<Cidade> listCidades = repository.findByEstado_Sigla(uf);
 			return listCidades.stream().map(CidadeDto::new).toList();
 		}
 
@@ -62,9 +62,9 @@ public class CidadeServiceImpl implements CidadeService {
 	@Override
 	@Transactional
 	public Cidade createCidade(CidadeDto dto) {
-		if (repository.existsCidadeByUfAndNome(dto.estado().getSigla(), dto.nome())) throw new BadRequestException();
+		if (repository.existsCidadeByNomeAndEstadoSigla(dto.nome(), dto.estado().getSigla())) throw new BadRequestException();
 		if (dto.capital() == true) {
-			if (repository.existsCidadeByUfAndCapital(dto.estado().getSigla(), true))
+			if (repository.existsCidadeByCapitalAndEstadoSigla(true, dto.estado().getSigla()))
 				throw new BadRequestException();
 		}
 

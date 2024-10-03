@@ -14,9 +14,9 @@ import java.util.List;
 //----------------------------------------------
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Long> {
-    boolean existsByUf(String uf);
-    boolean existsCidadeByUfAndNome(String uf, String nome);
-    boolean existsCidadeByUfAndCapital(String uf, Boolean capital);
+    boolean existsByEstado_Sigla(String sigla);
+    boolean existsCidadeByNomeAndEstadoSigla(String nome, String sigla);
+    boolean existsCidadeByCapitalAndEstadoSigla(Boolean capital, String sigla);
 
-    List<Cidade> findByUf(String uf);
+    List<Cidade> findByEstado_Sigla(String sigla);
 }
